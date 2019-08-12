@@ -7,6 +7,67 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+           <ul class="nav navbar-nav navbar-left">
+            <span style="color: white">TabiPhoto</span>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <!--ログインしている場合-->
+            <% if user_signed_in? %>
+            <li class="">
+              <%= link_to "地図を作る", root_path %>
+            </li>
+            <li class="">
+              <%= link_to '投稿する', root_path %>
+            </li>
+            <li class="">
+              <%= link_to '写真一覧', root_path %>
+            </li>
+            <li class="">
+              <%= link_to "検索", root_path %>
+            </li>
+            <li class="">
+              <%= link_to "このサイトについて", homes_about_path %>
+            </li>
+            <li class="">
+              <%= link_to "マイページ", root_path %>
+            </li>
+            <li class="">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+            </li>
+          </ul>
+          <!--ログインしていない場合-->
+          <% else %>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="">
+              <%= link_to "地図を作る", root_path %>
+            </li>
+            <li class="">
+              <%= link_to '投稿する', root_path %>
+            </li>
+            <li class="">
+              <%= link_to '写真一覧', root_path %>
+            </li>
+            <li class="">
+              <%= link_to "検索", destroy_user_session_path, method: :delete %>
+            </li>
+            <li class="">
+              <%= link_to "このサイトについて", homes_about_path %>
+            </li>
+            <li class="">
+              <%= link_to "会員登録", new_user_registration_path %>
+            </li>
+            <li class="">
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+            <% end %>
+          </ul>
+    </div>
+  </nav>
+
   </head>
 
   <body>
