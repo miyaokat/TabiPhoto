@@ -1,2 +1,11 @@
 <h1>Photos#new</h1>
 <p>Find me in app/views/photos/new.html.erb</p>
+
+<%= form_with(model: @photo, local: true) do |pho| %>
+
+<%= pho.text_field :title %>
+<%= pho.file_field :avatar %>
+<br>
+ <textarea name="tag_name" class="form-control post_form"></textarea>
+<%= pho.submit "写真を投稿する" %>
+<% end %>
