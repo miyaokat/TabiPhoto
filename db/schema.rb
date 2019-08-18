@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2019_08_09_173513) do
     t.integer "user_id"
     t.string "title"
     t.text "photo_info"
-    t.text "image_id"
     t.string "photo_address"
     t.boolean "public_flag"
     t.datetime "created_at", null: false
@@ -52,7 +51,6 @@ ActiveRecord::Schema.define(version: 2019_08_09_173513) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.integer "photo_id"
     t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
