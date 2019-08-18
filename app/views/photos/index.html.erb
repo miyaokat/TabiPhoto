@@ -2,6 +2,7 @@
 <p>Find me in app/views/photos/index.html.erb</p>
 
 <% @photos.each do |image| %>
+<%= link_to photo_path(image.id) do %>
     <li>
       <%= image.title %>
       <%= image_tag image.avatar %>
@@ -9,5 +10,6 @@
 	      <%= t.tag.tag_name %>
 	      <% end %>
     </li>
+    <% end %>
   <% end %>
 

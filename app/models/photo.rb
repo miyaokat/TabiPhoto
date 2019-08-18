@@ -21,4 +21,12 @@ class Photo < ApplicationRecord
       end
     end
 
+    def self.search_tag(keyword)
+    unless keyword.empty?
+     photo = Photo.joins(:tags).where(['tags.tag_name LIKE ?', "%#{keyword}%"]).uniq
+   	else
+     all
+   	end
+    end
+
 end

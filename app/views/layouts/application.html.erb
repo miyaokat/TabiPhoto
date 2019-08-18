@@ -27,7 +27,12 @@
               <%= link_to '写真一覧', photos_path %>
             </li>
             <li class="">
-              <%= link_to "検索", root_path %>
+              <div class="form-inline header-search-box">
+                <%= form_tag photos_path, method: :get do %>
+                <%= text_field_tag :keyword, '', placeholder: "キーワードで検索", class: "form-control", size: 30 %>
+                <%= submit_tag '検索' , :tag_name => nil, class: "btn btn-success"%>
+                <% end %>
+              </div>
             </li>
             <li class="">
               <%= link_to "このサイトについて", homes_about_path %>
@@ -52,7 +57,12 @@
               <%= link_to '写真一覧', photos_path %>
             </li>
             <li class="">
-              <%= link_to "検索", destroy_user_session_path, method: :delete %>
+              <div class="form-inline header-search-box">
+                <%= form_tag photos_path, method: :get do %>
+                <%= text_field_tag :keyword, '', placeholder: "キーワードで検索", class: "form-control", size: 30 %>
+                <%= submit_tag '検索' , :tag_name => nil, class: "btn btn-success"%>
+                <% end %>
+              </div>
             </li>
             <li class="">
               <%= link_to "このサイトについて", homes_about_path %>
@@ -67,7 +77,6 @@
           </ul>
     </div>
   </nav>
-
   </head>
 
   <body>
