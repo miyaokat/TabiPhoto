@@ -1,0 +1,26 @@
+class MapsController < ApplicationController
+  before_action :authenticate_user!
+  def show
+  	#indexアクションから渡された県名で、どの県の情報を表示するか判断している
+  	@mphotos = Photo.where(user_id: current_user.id).where(['photo_address LIKE ?', "%#{@@prefecture}%"]).uniq
+  	map = Geocoder.coordinates("#{@@prefecture}")
+  	gon.lat, gon.lng = map
+  	gon.position_list = @mphotos.pluck(:latitude, :longitude)
+
+  end
+
+  def index
+  	@mphotos = nil
+  	@photos = Photo.where(user_id: current_user.id)
+  	#そのユーザーの投稿済み写真から住所を抜き出す
+  	gon.user_photos = Photo.where(user_id: current_user.id).pluck(:photo_address)
+
+  	#ビューから渡ってきた、県名を確認
+  	unless params[:prefecture].blank?
+  		@@prefecture = params[:prefecture]
+  		render:js => "window.location = '/maps/show'"
+  	else
+  		@mphotos = nil
+  	end
+  end
+end

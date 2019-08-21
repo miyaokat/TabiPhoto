@@ -67,3 +67,5 @@ gem 'devise'
 gem "jquery-rails"
 gem 'impressionist'
 gem 'pry-byebug', group: :development
+gem 'gon'
+gem 'geocoder'

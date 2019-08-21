@@ -1,0 +1,15 @@
+// Place all the styles related to the maps controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//都道府県ごとのGoogleMap
+#pre-google-map {
+	height: 500px;
+	width: 80%;
+	margin: 0 auto;
+}
+
+///日本地図の設定
+.japan-map{
+	text-align: center;
+}

@@ -1,0 +1,22 @@
+<div class="google-map">
+	<div id="pre-google-map"></div>
+</div>
+<script>
+var MyLatLng = new google.maps.LatLng(gon.lat, gon.lng);
+var Options = {
+ zoom: 7,      //地図の縮尺値
+ center: MyLatLng,    //地図の中心座標
+ mapTypeId: 'roadmap'   //地図の種類
+};
+var map = new google.maps.Map(document.getElementById('pre-google-map'), Options);
+</script>
+
+
+<% @mphotos.each do |pho| %>
+      <%= pho.title %>
+      <%= image_tag pho.avatar %>
+      <% pho.photo_tags.each do |t| %>
+	      <%= link_to t.tag.tag_name, photos_path(keyword: t.tag.tag_name), class: "btn btn-primary"%>
+	      <% end %>
+<% end%>
+
