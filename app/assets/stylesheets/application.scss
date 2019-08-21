@@ -15,3 +15,8 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ //地図の親要素としてサイズを定義
+ .google-map{
+ 	height: 100%
+ }

@@ -1,6 +1,6 @@
       <%= @photo.title %>
       <%= image_tag @photo.avatar %>
       <% @photo.photo_tags.each do |t| %>
-	      <%= link_to t.tag.tag_name, photos_path(keyword: t.tag.tag_name), class: "btn btn-primary"%>
+	      <%= link_to t.tag.tag_name, photos_path(keytag: t.tag.tag_name), class: "btn btn-primary"%>
 	      <% end %>
 
