@@ -15,25 +15,10 @@
 <div class="top-photo-box">
 <% @photos.each do |image| %>
 <%= link_to photo_path(image.id) do %>
-	<div class="top-photo-box-contents clearfix">
-	<%= image_tag image.avatar.variant(resize:'270x270').processed  %>
-	</div>
+	<div class="top-photo-box-contents">
+	<%= image_tag image.avatar %>
 	<% end %>
+	</div>
 <% end %>
 </div>
 
-<!--画像を敷き詰めて配置する-->
-<script>
-var $container = $('.top-photo-box');
-$container.imagesLoaded(function(){
-    $('.photo-box').masonry({
-        itemSelector: '.top-photo-box-contents',//整理される要素のclassを指定
-        columnWidth: 270,     //一列の幅サイズを指定
-        isRTL: false,         //整理される要素が左右逆になる（読み言語などに）
-        gutterWidth: 0,       //整理される要素間の溝の幅を指定
-        containerStyle: { position: 'relative' }, //親要素にスタイルを追加できる
-        transitionDuration: '0.2s',
-        isResizable: true     //ウィンドウサイズが変更された時に並び替え
-    });
-});
-</script>
