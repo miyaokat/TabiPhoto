@@ -2,10 +2,8 @@ class MapsController < ApplicationController
   before_action :authenticate_user!
   def show
   	#indexアクションから渡された県名で、どの県の情報を表示するか判断している
-  	@mphotos = Photo.where(user_id: current_user.id).where(['photo_prefecture LIKE ?', "%#{@@prefecture}%"]).uniq
-  	gon.photoInfo = @mphotos
-
-  	@viewphotos = Photo.where(user_id: current_user.id).where(['photo_prefecture LIKE ?', "%#{@@prefecture}%"]).page(params[:page]).per(3)
+  	@mapphotos = Photo.where(user_id: current_user.id).where(['photo_prefecture LIKE ?', "%#{@@prefecture}%"]).uniq
+  	gon.photoInfo = @mapphotos
 
   	#都道府県の緯度経度を取得
   	map = Geocoder.coordinates("#{@@prefecture}")
