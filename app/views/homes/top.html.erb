@@ -1,14 +1,39 @@
+<!--ーヘッダーとの間の空白を無しに-->
+<style>
+	.navbar{
+		margin-bottom: 0;
+	}
+</style>
+
 <div class="top-field">
-	<p>ようこそTabiPhotoへ！
-		このサイトは旅の記録と、写真を投稿できるサイトです。
-		詳しくはこちら
-	</p>
+	<p class="top-info">ようこそTabiPhotoへ！</p>
+		このサイトは旅の記録と、写真を投稿できるサイトです。<br>
+		詳しくは<%= link_to "こちら", homes_about_path %>
 </div>
 
-<div class="current-photo-field">
-	<p>最近の画像</p>
+
+<div class="top-photo-box">
+<% @photos.each do |image| %>
+<%= link_to photo_path(image.id) do %>
+	<div class="top-photo-box-contents clearfix">
+	<%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+	</div>
+	<% end %>
+<% end %>
 </div>
 
-<div class="popular-photo-field">
-	<p>人気の画像</p>
-</div>
+<!--画像を敷き詰めて配置する-->
+<script>
+var $container = $('.top-photo-box');
+$container.imagesLoaded(function(){
+    $('.photo-box').masonry({
+        itemSelector: '.top-photo-box-contents',//整理される要素のclassを指定
+        columnWidth: 270,     //一列の幅サイズを指定
+        isRTL: false,         //整理される要素が左右逆になる（読み言語などに）
+        gutterWidth: 0,       //整理される要素間の溝の幅を指定
+        containerStyle: { position: 'relative' }, //親要素にスタイルを追加できる
+        transitionDuration: '0.2s',
+        isResizable: true     //ウィンドウサイズが変更された時に並び替え
+    });
+});
+</script>
