@@ -13,3 +13,23 @@
 .japan-map{
 	text-align: center;
 }
+
+//都道府県ページの設定
+.map-show-box{
+	width:auto;
+	margin: 0 auto;
+	padding-top: 20px;
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.map-show-contents {
+	width: 30%;
+	img{
+		width: 100%;
+		height: 300px;
+		padding: 0 20px 20px 20px;
+	}
+}

@@ -43,8 +43,12 @@ var map = new google.maps.Map(document.getElementById('pre-google-map'), Options
 	}
 </script>
 
-<% @viewphotos.each do |pho| %>
-      <%= image_tag pho.avatar.variant(resize:'800x800').processed %>
+<div class="map-show-box">
+<% @mapphotos.each do |pho| %>
+  <%= link_to photo_path(pho.id) do %>
+    <div class="map-show-contents">
+      <%= image_tag pho.avatar%>
+    <% end %>
+    </div>
 <% end%>
-
-<%= paginate @viewphotos, class: "paginate" %>
+</div>
