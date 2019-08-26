@@ -1,20 +1,92 @@
 <%= form_with(model: @photo, local: true) do |pho| %>
 
-<%= pho.text_field :title %>
-<%= pho.file_field :avatar %>
-<p>写真情報</p>
-<%= pho.text_field :photo_info %>
-<p>写真住所</p>
-<%= pho.text_field :photo_address %>
-<div class="radio">
-	<label class="radio-button">
-	<%= pho.radio_button :public_flag, "true" , {:checked => true} %>
-	<label for="radio-1" class="radio-label"> 公開</label>
-	<%= pho.radio_button :public_flag, "false" %>
-	<label for="radio-2" class="radio-label"> 非公開</label>
-	</label>
+<div class = "photo-image-area col-xs-3">
+<p>写真［必須］</p>
+<img id="prev-img" style="width:250px;height:250px;display: none;" />
+<%= pho.file_field :avatar, class: "image", id: "myfile"%>
+
+
+<script type="text/javascript">
+$(function(){
+  $('#myfile').change(function(e){
+    //ファイルオブジェクトを取得する
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    //画像でない場合は処理終了
+    if(file.type.indexOf("image") < 0){
+      alert("画像ファイルを指定してください。");
+      return false;
+    }
+    //アップロードした画像を設定する
+    reader.onload = (function(file){
+      return function(e){
+        $("#prev-img").attr("src", e.target.result);
+        $("#prev-img").attr("title", file.name);
+        $("#prev-img").show();
+      };
+    })(file);
+    reader.readAsDataURL(file);
+  });
+});
+</script>
 </div>
-<br>
-<textarea name="tag_name" class="form-control post_form" placeholder=",かスペースを挟めば一度に複数のタグを登録できます"></textarea>
-<%= pho.submit "写真を投稿する" %>
+
+<div class = "photo-info-area col-xs-9">
+<div class="form-group row">
+	<p class="col-xs-3">タイトル［必須］</p>
+	<div class ="col-xs-6 ">
+	<%= pho.text_field :title, placeholder: "写真のタイトルを入力", class: "form-control" %>
+	</div>
+</div>
+
+<div class="form-group row">
+	<p class="col-xs-3">説明文［任意］</p>
+	<div class ="col-xs-6 ">
+	<%= pho.text_field :photo_info, class: "form-control"%>
+	</div>
+</div>
+
+<div class="form-group row">
+	<p class="col-xs-3">撮影場所［必須］</p>
+	<div class ="col-xs-6 ">
+	<p>都道府県:
+	<%= pho.select(:photo_prefecture,
+	[['北海道'], ['青森県'], ['岩手県'], ['宮城県'], ['秋田県'], ['山形県'], ['福島県'], ['茨城県'], ['栃木県'], ['群馬県'], ['埼玉県'], 
+	['千葉県'], ['東京都'], ['神奈川県'], ['新潟県'], ['富山県'], ['石川県'], ['福井県'], ['山梨県'], ['長野県'], ['岐阜県'], ['静岡県'], 
+	['愛知県'], ['三重県'], ['滋賀県'], ['京都府'], ['大阪府'], ['兵庫県'], ['奈良県'], ['和歌山県'], ['鳥取県'], ['島根県'], ['岡山県'], 
+	['広島県'], ['山口県'], ['徳島県'], ['香川県'], ['愛媛県'], ['高知県'], ['福岡県'], ['佐賀県'], ['長崎県'], ['熊本県'], ['大分県'], 
+	['宮崎県'], ['鹿児島県'], ['沖縄県']])%>
+	</p>
+	<br>
+	<%= pho.text_field :photo_address, placeholder: "市町村を入力",class: "form-control" %>
+	</div>
+</div>
+
+<div class="form-group row">
+	<p class="col-xs-3">タグ［任意］</p>
+	<div class ="col-xs-6 ">
+		<p>写真に合わせたワードを設定することで、<br>
+		検索の対象となり閲覧の機会が増えます</p>
+	<textarea name="tag_name" class="form-control post_form" placeholder=",(カンマ)かスペースを挟めば一度に複数のタグを登録できます"></textarea>
+	</div>
+</div>
+
+<div class="form-group row">
+	<p class="col-xs-3">公開設定［必須］</p>
+	<div class ="col-xs-6 ">
+		<div class="radio">
+			<%= pho.radio_button :public_flag, "true" , {:checked => true} %>
+			<label for="radio-1" class="radio-label col-xs-6"> 公開</label>
+			<%= pho.radio_button :public_flag, "false" %>
+			<label for="radio-2" class="radio-label col-xs-6"> 非公開</label>
+		</div>
+		<br>
+		<p>公開：サイト上で公開され、検索の対象にもなります。<br>
+		非公開：投稿した本人のみが閲覧でき、検索対象にもなりません。</p>
+	</div>
+</div>
+<div class="form-group row">
+	<%= pho.submit "上記の内容で写真を投稿する" , class:'btn btn-success col-xs-9'%>
+</div>
+</div>
 <% end %>

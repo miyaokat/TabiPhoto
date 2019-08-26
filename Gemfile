@@ -69,3 +69,4 @@ gem 'impressionist'
 gem 'pry-byebug', group: :development
 gem 'gon'
 gem 'geocoder'
+gem 'kaminari'
