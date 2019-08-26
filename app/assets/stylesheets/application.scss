@@ -16,7 +16,22 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+ * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
  //地図の親要素としてサイズを定義
  .google-map{
  	height: 100%
+ }
+
+ .navbar{
+ 	width: 100%;
  }
