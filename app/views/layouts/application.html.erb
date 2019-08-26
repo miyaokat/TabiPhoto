@@ -4,7 +4,7 @@
     <title>TabiPhoto</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= include_gon %>
@@ -13,9 +13,9 @@
     <nav class="navbar navbar-inverse">
       <div class="container">
            <ul class="nav navbar-nav navbar-left">
-            <span style="color: white">
-             <%= link_to 'TabiPhoto', root_path %>
-           </span>
+            <%= link_to root_path do %>
+            <%= image_tag('logo.png') %>
+            <% end %>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">

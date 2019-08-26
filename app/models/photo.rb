@@ -23,9 +23,19 @@ class Photo < ApplicationRecord
       end
     end
 
-    def self.search_tag(keyword)
+    def self.search_word(keyword)
     unless keyword.empty?
-     photo = Photo.joins(:tags).where(['tags.tag_name LIKE ?', "%#{keyword}%"]).uniq
+     tag = Photo.joins(:tags).where(['tags.tag_name LIKE ?', "%#{keyword}%"]).uniq
+     word = Photo.where("photo_info LIKE ? OR photo_address LIKE ? OR photo_prefecture LIKE ?", "%#{keyword}%","%#{keyword}%","%#{keyword}%").uniq
+     result = tag.concat(word).uniq
+   	else
+     all
+   	end
+    end
+
+    def self.search_tag(keytag)
+    unless keytag.empty?
+     photo = Photo.joins(:tags).where(['tags.tag_name LIKE ?', "%#{keytag}%"]).uniq
    	else
      all
    	end

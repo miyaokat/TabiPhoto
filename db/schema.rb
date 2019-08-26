@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_111303) do
     t.text "photo_info"
     t.string "photo_address"
     t.boolean "public_flag"
+    t.string "photo_prefecture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "latitude"

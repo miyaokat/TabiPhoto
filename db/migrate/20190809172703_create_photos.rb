@@ -6,7 +6,7 @@ class CreatePhotos < ActiveRecord::Migration[5.2]
       t.text :photo_info
       t.string :photo_address
       t.boolean :public_flag
-
+      t.string :photo_prefecture
       t.timestamps
     end
   end
