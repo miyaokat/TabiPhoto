@@ -6,15 +6,20 @@
 * {
   box-sizing: border-box;
 }
-.photo-box-contents {
-width: auto;
-float: left;
-}
 .photo-box {
 	width: 100%;
-	max-width: 1080px;
     margin: 0 auto;
+    background-color: #e6e6fa;
+    padding-left: 50px;
 }
+.photo-box-contents {
+width: 260px;
+margin: 5px;
+}
+.photo-box-contents img{
+text-align: center;
+}
+
 .photos-paginate-box{
 	text-align: center;
 }

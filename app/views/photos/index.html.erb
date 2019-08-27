@@ -5,14 +5,14 @@
 <% if user_signed_in? && image.user_id == @user.id%>
 <%= link_to photo_path(image.id) do %>
 	<div class="photo-box-contents clearfix">
-	<%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+	<%= image_tag image.avatar.variant(resize:'260x260').processed  %>
 	</div>
 	<% end %>
 <% end %>
 <% else %>
 <%= link_to photo_path(image.id) do %>
 	<div class="photo-box-contents clearfix">
-	<%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+	<%= image_tag image.avatar.variant(resize:'260x260').processed  %>
 	<% end %>
 </div>
 <% end %>
@@ -23,10 +23,10 @@
 <!--画像を敷き詰めて配置する-->
 <script>
 var $container = $('.photo-box');
-$container.imagesLoaded(function(){
+$container.imagesLoaded().done(function(){
     $('.photo-box').masonry({
         itemSelector: '.photo-box-contents',//整理される要素のclassを指定
-        columnWidth: 270,     //一列の幅サイズを指定
+        columnWidth: '.photo-box-contents',     //一列の幅サイズを指定
         isRTL: false,         //整理される要素が左右逆になる（読み言語などに）
         gutterWidth: 0,       //整理される要素間の溝の幅を指定
         containerStyle: { position: 'relative' }, //親要素にスタイルを追加できる
