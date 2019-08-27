@@ -6,13 +6,14 @@ before_action :authenticate_user!, except: [:index, :show]
 
   def index
   	@user = current_user
+    @photos = Photo.all
     #キーワード、あるいはタグがあれば対応した条件で絞り込み、なければ全ての写真を渡す
   	if params[:keytag].present?
-  	@photos = Photo.search_tag(params[:keytag])
+  	@photos = Photo.reverse_order.search_tag(params[:keytag])
   	elsif params[:keyword].present?
-      @photos = Photo.search_word(params[:keyword])
+      @photos = Photo.reverse_order.search_word(params[:keyword])
     else
-  	@photos = Photo.all
+  	@photos = Photo.all.reverse_order
   	end
     @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(20)
   end
@@ -25,12 +26,16 @@ before_action :authenticate_user!, except: [:index, :show]
   def create
   	@photo = Photo.new(photo_params)
   	@photo.user_id = current_user.id
-  	@photo.save
-
+  	if@photo.avatar.attached?
+      @photo.save
   	#カンマや全角スペーズを全て半角に置き換え、タグを分割する
   	tag_list = params[:tag_name].gsub(/[\s　]/," ").gsub(","," ").split(" ")
   	@photo.save_tags(tag_list)
-  	redirect_to root_path
+  	redirect_to photos_path
+    else
+      flash.now[:notice] = "入力情報に不備があります。"
+      render :new
+    end
   end
 
   def edit

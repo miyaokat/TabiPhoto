@@ -13,28 +13,26 @@
 	text-align: center;
 	padding-top: 150px;
 	font-size: 25px;
-	margin-bottom: 20px;
 }
 
 
 .top-photo-box{
-	width:auto;
+	width:100%;
 	margin: 0 auto;
-	padding-top: 20px;
-	text-align: center;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+    background-color: #e6e6fa;
+    padding-left: 50px;
+    padding-top: 10px
 }
 
 .top-photo-box-contents{
-	width: 20%;
-	img{
-		width: 100%;
-		height: 300px;
-		padding: 0 20px 20px 20px;
-	}
+	width: 260px;
+	margin: 5px;
 }
+.top-photo-box-contents img{
+	text-align: center;
+}
+
+
 
 .top-info{
 	font-size: 35px;
