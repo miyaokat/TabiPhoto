@@ -1,0 +1,50 @@
+// Place all the styles related to the photos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//写真一覧画面
+* {
+  box-sizing: border-box;
+}
+.photo-box {
+	width: 100%;
+    margin: 0 auto;
+    background-color: #e6e6fa;
+    padding-left: 50px;
+}
+.photo-box-contents {
+width: 260px;
+margin: 5px;
+}
+.photo-box-contents img{
+text-align: center;
+}
+
+.photos-paginate-box{
+	text-align: center;
+}
+
+
+//グーグルマップの大きさ
+#photo-google-map {
+	height: 500px;
+	width: auto;
+	margin: 0 auto;
+}
+
+///写真詳細画面
+.show-photo{
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	font-size: 25px;
+	max-width: 95%;
+}
+.show-photo img {
+ max-width: 95%;
+ box-sizing: border-box;
+}
+.user-name{
+	font-size: 30px;
+}

@@ -1,0 +1,54 @@
+<div class="google-map">
+	<div id="pre-google-map"></div>
+</div>
+<script>
+// 配列の初期化
+var marker = [];
+
+//コントローラーから渡された要素
+var photo = gon.photoInfo;
+const j = photo.length;
+var markerData = new Array(j);
+
+for(y = 0; y < photo.length; y++){
+	markerData[y] = new Object();
+}
+
+//コントローラーから渡された要素の数だけ繰り返す
+for(var x = 0; x < photo.length; x++){
+// 配列のkeyに対し値を設定する
+markerData[x]['name'] = photo[x].title;
+markerData[x]['lat'] = photo[x].latitude;
+markerData[x]['lng'] = photo[x].longitude;
+}
+
+var MyLatLng = new google.maps.LatLng(gon.lat, gon.lng);
+var Options = {
+ zoom: 8,      //地図の縮尺値
+ center: MyLatLng,    //地図の中心座標
+ mapTypeId: 'roadmap'   //地図の種類
+};
+var map = new google.maps.Map(document.getElementById('pre-google-map'), Options);
+
+// マーカー毎の処理
+ for (var i = 0; i < markerData.length; i++) {
+        markerLatLng = new google.maps.LatLng({
+        lat: markerData[i]['lat'], 
+        lng: markerData[i]['lng']
+        }); // 緯度経度のデータ作成
+        marker[i] = new google.maps.Marker({ // マーカーの追加
+         position: markerLatLng, // マーカーを立てる位置を指定
+            map: map // マーカーを立てる地図を指定
+       });
+	}
+</script>
+
+<div class="map-show-box">
+<% @mapphotos.each do |pho| %>
+  <%= link_to photo_path(pho.id) do %>
+    <div class="map-show-contents">
+      <%= image_tag pho.avatar%>
+    <% end %>
+    </div>
+<% end%>
+</div>

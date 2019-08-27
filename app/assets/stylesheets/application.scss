@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+ * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.clearfix::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.navbar{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.nav{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+ //地図の親要素としてサイズを定義
+ .google-map{
+ 	height: 100%
+ }
+
+ .navbar{
+ 	width: 100%;
+ }

@@ -4,11 +4,84 @@
     <title>TabiPhoto</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <%= include_gon %>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDCGlDVmSpxT3q3uU5Sa72X6U55Idq6h7I&language=ja"></script>
 
+    <nav class="navbar navbar-inverse">
+
+           <ul class="nav navbar-nav navbar-left">
+            <%= link_to root_path do %>
+            <%= image_tag('logo.png') %>
+            <% end %>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <!--ログインしている場合-->
+            <% if user_signed_in? %>
+            <li class="">
+              <%= link_to "地図を作る", maps_path %>
+            </li>
+            <li class="">
+              <%= link_to '投稿する', new_photo_path %>
+            </li>
+            <li class="">
+              <%= link_to '写真一覧', photos_path %>
+            </li>
+            <li class="">
+              <div class="form-inline header-search-box">
+                <%= form_tag photos_path, method: :get do %>
+                <%= text_field_tag :keyword, '', placeholder: "キーワードで検索", class: "form-control", size: 30 %>
+                <%= submit_tag '検索' , :tag_name => nil, class: "btn btn-success"%>
+                <% end %>
+              </div>
+            </li>
+            <li class="">
+              <%= link_to "このサイトについて", homes_about_path %>
+            </li>
+            <li class="">
+              <%= link_to "マイページ", users_show_path(current_user.id) %>
+            </li>
+            <li class="">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+            </li>
+          </ul>
+          <!--ログインしていない場合-->
+          <% else %>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="">
+              <%= link_to "地図を作る", maps_path %>
+            </li>
+            <li class="">
+              <%= link_to '投稿する', new_photo_path %>
+            </li>
+            <li class="">
+              <%= link_to '写真一覧', photos_path %>
+            </li>
+            <li class="">
+              <div class="form-inline header-search-box">
+                <%= form_tag photos_path, method: :get do %>
+                <%= text_field_tag :keyword, '', placeholder: "キーワードで検索", class: "form-control", size: 30 %>
+                <%= submit_tag '検索' , :tag_name => nil, class: "btn btn-success"%>
+                <% end %>
+              </div>
+            </li>
+            <li class="">
+              <%= link_to "このサイトについて", homes_about_path %>
+            </li>
+            <li class="">
+              <%= link_to "会員登録", new_user_registration_path %>
+            </li>
+            <li class="">
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+            <% end %>
+          </ul>
+
+  </nav>
+</head>
   <body>
     <%= yield %>
   </body>

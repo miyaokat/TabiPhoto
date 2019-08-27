@@ -1,0 +1,91 @@
+<div class="user-name">
+	<%= @user.name %>さん
+</div>
+<br>
+
+<div class="show-photo panel panel-info">
+	<div class="panel-heading">
+		<%= @photo.title %>
+	</div>
+<br>
+<div class="panel-body">
+<%= image_tag @photo.avatar%>
+</div>
+</div>
+
+<div class = "info-area col-xs-6">
+<div class="panel panel-info">
+	<div class="panel-heading">
+		写真説明
+	</div>
+	 <div class="panel-body">
+		<%= @photo.photo_info %>
+	</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading">
+		撮影場所
+	</div>
+	<div class="panel-body">
+		<%= @photo.photo_prefecture %>
+		<%= @photo.photo_address %>
+	</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading">
+		タグ
+	</div>
+	<div class="panel-body">
+		<% @photo.photo_tags.each do |t| %>
+  		<%= link_to t.tag.tag_name, photos_path(keytag: t.tag.tag_name), class: "btn btn-primary"%>
+		<% end %>
+	</div>
+</div>
+
+<!--投稿した本人、もしくは管理者であれば写真の編集と削除ができる-->
+<% if user_signed_in? && @photo.user_id == current_user.id || @user.admin_flag == true%>
+<div class="form-group row">
+	<div class ="col-xs-12">
+		<%= link_to "写真の情報を編集", edit_photo_path(@photo.id), class:"btn btn-success form-control" %>
+	</div>
+</div>
+<div class="form-group row">
+	<div class ="col-xs-12">
+	<%= link_to '写真を削除する', photo_path(@photo.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger form-control" %>
+	</div>
+</div>
+<else>
+<% end %>
+</div>
+
+
+<!--GoogleMapと撮影場所のマーカーの設定-->
+<div class = "map-area col-xs-6">
+	<div class="google-map"></div>
+	<div id="photo-google-map"></div>
+</div>
+
+<script>
+var Options = {
+ zoom: 15,      //地図の縮尺値
+ center: { // 地図の中心を指定
+            lat: <%= @photo.latitude %>, // 緯度
+            lng: <%= @photo.longitude %> // 経度
+        },    //地図の中心座標
+ mapTypeId: 'roadmap'   //地図の種類
+};
+var map = new google.maps.Map(document.getElementById('photo-google-map'), Options);
+
+var markerLatLng = new google.maps.LatLng({
+        lat: <%= @photo.latitude %>,
+        lng: <%= @photo.longitude %>
+        });
+var marker = new google.maps.Marker({ // マーカーの追加
+         position: markerLatLng, // マーカーを立てる位置を指定
+            map: map // マーカーを立てる地図を指定
+       });
+</script>
+
+
+
+</div>
