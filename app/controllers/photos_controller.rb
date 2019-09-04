@@ -68,6 +68,6 @@ before_action :authenticate_user!, except: [:index, :show]
 
   protected
   def photo_params
-  	params.require(:photo).permit(:title, :avatar, :user_id, :photo_info, :public_flag, :photo_address, :photo_prefecture)
+  	params.require(:photo).permit(:title, :avatar, :user_id, :photo_info, :public_flag, :photo_address, :photo_prefecture, :latitude, :longitude)
   end
 end
