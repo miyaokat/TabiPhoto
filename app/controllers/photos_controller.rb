@@ -9,11 +9,11 @@ before_action :authenticate_user!, except: [:index, :show]
     @photos = Photo.all
     #キーワード、あるいはタグがあれば対応した条件で絞り込み、なければ全ての写真を渡す
   	if params[:keytag].present?
-  	@photos = Photo.reverse_order.search_tag(params[:keytag])
+  	@photos = Photo.order(id: "DESC").search_tag(params[:keytag])
   	elsif params[:keyword].present?
-      @photos = Photo.reverse_order.search_word(params[:keyword])
+      @photos = Photo.order(id: "DESC").search_word(params[:keyword])
     else
-  	@photos = Photo.all.reverse_order
+  	@photos = Photo.all.order(id: "DESC")
   	end
     @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(20)
   end
@@ -68,6 +68,6 @@ before_action :authenticate_user!, except: [:index, :show]
 
   protected
   def photo_params
-  	params.require(:photo).permit(:title, :avatar, :user_id, :photo_info, :public_flag, :photo_address, :photo_prefecture)
+  	params.require(:photo).permit(:title, :avatar, :user_id, :photo_info, :public_flag, :photo_address, :photo_prefecture, :latitude, :longitude)
   end
 end

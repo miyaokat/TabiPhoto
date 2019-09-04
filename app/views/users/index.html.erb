@@ -1,22 +1,21 @@
 <div class="photo-box">
 <% @photos.each do |image| %>
-<% if image.public_flag == false %>
-<!--非公開の写真でも投稿した本人であれば表示されるようにする-->
-<% if user_signed_in? && image.user_id == @user.id%>
-<%= link_to photo_path(image.id) do %>
-	<div class="photo-box-contents clearfix">
-	<%= image_tag image.avatar.variant(resize:'270x270').processed  %>
-	</div>
-	<% end %>
-<% end %>
-<% else %>
-<%= link_to photo_path(image.id) do %>
-	<div class="photo-box-contents clearfix">
-	<%= image_tag image.avatar.variant(resize:'270x270').processed  %>
-	<% end %>
-</div>
-<% end %>
-<% else %>
+    <% if image.public_flag == false %>
+        <!--非公開の写真でも投稿した本人であれば表示されるようにする-->
+        <% if user_signed_in? && image.user_id == @user.id%>
+            <%= link_to photo_path(image.id) do %>
+            <div class="photo-box-contents clearfix">
+               <%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+            </div>
+            <% end %>
+        <% end %>
+    <% else %>
+        <%= link_to photo_path(image.id) do %>
+            <div class="photo-box-contents clearfix">
+                <%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+            </div>
+        <% end %>
+    <% end %>
 <% end %>
 </div>
 
