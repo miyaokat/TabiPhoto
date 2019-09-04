@@ -3,8 +3,6 @@ class Photo < ApplicationRecord
 	has_many :photo_tags, dependent: :destroy
 	has_many :tags, through: :photo_tags
 	has_one_attached :avatar
-	geocoded_by :photo_address
-	after_validation :geocode, if: lambda {|obj| obj.photo_address_changed?}
 
 	validates :title, presence: true
 	validates :photo_address, presence: true
