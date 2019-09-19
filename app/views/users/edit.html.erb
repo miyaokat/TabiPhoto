@@ -1,0 +1,10 @@
+
+	<%= form_for @user,:url  => {:action => :update}  do |a| %>
+		<h4>名前</h4>
+		<%= a.text_field :name, class:'form-control' %>
+		<h4>メールアドレス</h4>
+		<%= a.text_field :email ,size:70, class:'form-control' %>
+		<%= hidden_field_tag :userid, @user.id %>
+		<br><br>
+	<%= a.submit '変更内容を保存', class: "btn btn-primary"%>
+	<% end %>

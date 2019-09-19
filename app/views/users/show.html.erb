@@ -1,8 +1,63 @@
-<div class="mypage-box">
-	<div class="mypage-box-contents">
-	<%= @user.name %>さんのマイページ
-	<%= link_to "投稿済み写真一覧", users_index_path, class:"btn btn-success form-control" %>
-	<%= link_to '退会する', users_update_path(:id => @user.id, :is_deleted => 'true'),
-						:method => :patch,"data-confirm" => "本当に退会しますか？" , class: "btn btn-danger form-control" %>
+
+ <!--タブメニューを作成する-->
+    <div class="wrap">
+      <ul id="tab-menu" class="clearfix">
+        <li><a href="#tab1" class="active">ユーザー情報</a></li>
+        <li><a href="#tab2" class="">このユーザーが投稿した写真</a></li>
+      </ul>
+       <div id="tab-contents" class="clearfix">
+        <div id="tab1" class="tab">
+          <p>ユーザー名: <%= @user.name %></p>
+
+          <div class="mypage-box">
+			<div class="mypage-box-contents">
+            <!--ー管理者もしくは本人の場合のみ編集と削除が可能-->
+    			<% if user_signed_in? && current_user.id == @user.id or current_user.admin_flag == true%>
+                    <%= link_to "ユーザー情報を編集", users_edit_path(userid: @user.id), :method => :get, class:"btn btn-success form-control" %>
+    			    <%= link_to '退会する', users_update_path(userid: @user.id, :is_deleted => 'true'),
+    								:method => :patch,"data-confirm" => "本当に退会しますか？" , class: "btn btn-danger form-control" %>
+    			<% end %>
+			</div>
+		   </div>
+        </div>
+
+        <div id="tab2" class="tab">
+          <p>ユーザーが投稿した写真を確認できる（非公開であれば、他のユーザーからは見れない。）</p>
+          <div class="photo-box">
+			<% @photos.each do |image| %>
+			    <% if image.public_flag == false %>
+			        <!--非公開の写真でも投稿した本人であれば表示されるようにする-->
+			        <% if user_signed_in? && image.user_id == @user.id%>
+			            <%= link_to photo_path(image.id) do %>
+			            <div class="photo-box-contents clearfix">
+			               <%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+			            </div>
+			            <% end %>
+			        <% end %>
+			    <% else %>
+			        <%= link_to photo_path(image.id) do %>
+			            <div class="photo-box-contents clearfix">
+			                <%= image_tag image.avatar.variant(resize:'270x270').processed  %>
+			            </div>
+			        <% end %>
+			    <% end %>
+			<% end %>
+	       </div>
+        </div>
+    	</div>
 	</div>
-</div>
+
+<!--タブメニューの表示と動作-->
+<script>
+$('#tab-contents .tab[id != "tab1"]').hide();
+ 
+$('#tab-menu a').on('click', function() {
+  $("#tab-contents .tab").hide();
+  $("#tab-menu .active").removeClass("active");
+  $(this).addClass("active");
+  $($(this).attr("href")).show();
+  return false;
+});
+</script>
+
+

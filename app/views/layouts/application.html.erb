@@ -42,7 +42,11 @@
               <%= link_to "このサイトについて", homes_about_path %>
             </li>
             <li class="">
+              <% if current_user.admin_flag == true %>
+              <%= link_to "管理者ページ", users_index_path(current_user.id) %>
+              <% else %>
               <%= link_to "マイページ", users_show_path(current_user.id) %>
+              <% end %>
             </li>
             <li class="">
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>

@@ -1,5 +1,5 @@
 <div class="user-name">
-	<%= @user.name %>さん
+	<%= link_to @user.name, users_show_path(userid: @user.id)%>
 </div>
 <br>
 
