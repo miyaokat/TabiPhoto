@@ -1,39 +1,38 @@
-<div class="photo-box">
-<% @photos.each do |image| %>
-    <% if image.public_flag == false %>
-        <!--非公開の写真でも投稿した本人であれば表示されるようにする-->
-        <% if user_signed_in? && image.user_id == @user.id%>
-            <%= link_to photo_path(image.id) do %>
-            <div class="photo-box-contents clearfix">
-               <%= image_tag image.avatar.variant(resize:'270x270').processed  %>
-            </div>
-            <% end %>
+<table class="table table-hover col-xs-10">
+    <thead>
+        <tr>
+            <th>ユーザー名</th>
+            <th>email</th>
+            <th>ユーザー種別</th>
+            <th>退会管理</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |us| %>
+        <tr>
+            <td>
+                <%= link_to us.name, users_show_path(userid: us.id)%>
+            </td>
+            <td><%= us.email %></td>
+            <td><% if us.admin_flag == true %>
+                <p>管理者</p>
+                <% else %>
+                <p>一般ユーザー</p>
+                <% end %>
+            </td>
+            <td>
+                <%if us.admin_flag == true %>
+                <% else %>
+                    <%if us.is_deleted == true %>
+                        <%= link_to 'ユーザーを復旧する', users_update_path(userid: us.id, :is_deleted => 'false'),
+                        :method => :patch, class: "btn btn-danger"%>
+                    <% else %>
+                        <%= link_to 'ユーザーを退会させる', users_update_path(userid: us.id, :is_deleted => 'true'),
+                        :method => :patch, class: "btn btn-danger"%>
+                        <% end %>
+                <% end %>
+            </td>
+        </tr>
         <% end %>
-    <% else %>
-        <%= link_to photo_path(image.id) do %>
-            <div class="photo-box-contents clearfix">
-                <%= image_tag image.avatar.variant(resize:'270x270').processed  %>
-            </div>
-        <% end %>
-    <% end %>
-<% end %>
-</div>
-
-<!--画像を敷き詰めて配置する-->
-<script>
-var $container = $('.photo-box');
-$container.imagesLoaded(function(){
-    $('.photo-box').masonry({
-        itemSelector: '.photo-box-contents',//整理される要素のclassを指定
-        columnWidth: 270,     //一列の幅サイズを指定
-        isRTL: false,         //整理される要素が左右逆になる（読み言語などに）
-        gutterWidth: 0,       //整理される要素間の溝の幅を指定
-        containerStyle: { position: 'relative' }, //親要素にスタイルを追加できる
-        transitionDuration: '0.2s',
-        isResizable: true     //ウィンドウサイズが変更された時に並び替え
-    });
-});
-</script>
-<div class="photos-paginate-box">
-<%= paginate @photos, class: "paginate" %>
-</div>
+    </tbody>
+</table>

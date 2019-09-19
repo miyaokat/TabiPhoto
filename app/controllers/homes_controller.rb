@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-  	#MYSQLで実施する場合RANDに書き換えること
-  	@photos = Photo.where(public_flag: true).order("RANDOM()").limit(10)
+  	target_ids = Photo.where(public_flag: true).sample(10)
+	@photos = Photo.where(id: target_ids)
   end
 end

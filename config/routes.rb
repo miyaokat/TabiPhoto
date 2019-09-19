@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'homes/about'
   get 'users/show'
   get 'users/index'
+  get 'users/edit'
   patch 'users/update'
   devise_for :users
   root 'homes#top'
