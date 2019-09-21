@@ -1,24 +1,25 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PhotosControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
+  test 'should get new' do
     get photos_new_url
     assert_response :success
   end
 
-  test "should get index" do
+  test 'should get index' do
     get photos_index_url
     assert_response :success
   end
 
-  test "should get show" do
+  test 'should get show' do
     get photos_show_url
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get photos_edit_url
     assert_response :success
   end
-
 end
